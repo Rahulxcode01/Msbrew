@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Video Eksklusif 18+ | Konten Terbatas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #000);
+      color: #f0f0f0;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 30px auto;
+      padding: 25px;
+      background: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+      border: 1px solid #333;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 25px rgba(255, 50, 50, 0.4);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .video-thumbnail:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 50, 50, 0.6);
+    }
+
+    .video-thumbnail img {
+      width: 100%;
+      display: block;
+      filter: blur(2px) brightness(0.7);
+      transition: filter 0.3s;
+    }
+
+    .video-thumbnail:hover img {
+      filter: blur(1px) brightness(0.8);
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(230, 0, 0, 0.9);
+      color: #fff;
+      font-size: 45px;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+      transition: all 0.3s;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .play-button:hover {
+      background: rgba(255, 0, 0, 0.95);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    h1 {
+      font-size: 24px;
+      margin: 25px 0 15px;
+      color: #ffd700;
+      text-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
+      font-weight: 600;
+    }
+
+    .description {
+      color: #bbb;
+      font-size: 15px;
+      margin-bottom: 20px;
+      padding: 0 10px;
+    }
+
+    .cta {
+      margin: 20px 0;
+      background: linear-gradient(to right, #e60000, #b30000);
+      color: white;
+      padding: 15px 35px;
+      border: none;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(230, 0, 0, 0.4);
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .cta:hover {
+      background: linear-gradient(to right, #ff1a1a, #cc0000);
+      box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .countdown {
+      margin: 20px auto;
+      background: rgba(30, 30, 30, 0.8);
+      padding: 12px 25px;
+      border-radius: 8px;
+      display: inline-block;
+      color: #ff6b6b;
+      font-weight: bold;
+      font-size: 16px;
+      border: 1px solid #444;
+    }
+
+    .progress-container {
+      margin: 25px auto;
+      background: #252525;
+      height: 18px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 550px;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+
+    .progress-bar {
+      background: linear-gradient(to right, #00c853, #4caf50);
+      height: 100%;
+      width: 0%;
+      transition: width 3s ease-in-out;
+      position: relative;
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+      animation: shine 2s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .verifying {
+      margin: 10px 0;
+      color: #aaa;
+      font-style: italic;
+      display: none;
+      font-size: 14px;
+    }
+
+    .stats-container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 550px;
+      margin: 25px auto;
+      gap: 15px;
+    }
+
+    .stat-box {
+      background: rgba(40, 40, 40, 0.8);
+      padding: 12px;
+      border-radius: 8px;
+      flex: 1;
+      border: 1px solid #333;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4caf50;
+      margin: 5px 0;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #999;
+    }
+
+    .comments {
+      background: rgba(30, 30, 30, 0.8);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 30px;
+      text-align: left;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+      border: 1px solid #333;
+    }
+
+    .comments h2 {
+      color: #ffd700;
+      font-size: 20px;
+      margin-top: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #444;
+    }
+
+    .comment {
+      margin: 15px 0;
+      font-size: 15px;
+      color: #e0e0e0;
+      border-bottom: 1px solid #333;
+      padding-bottom: 12px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .comment strong {
+      color: #ffd700;
+    }
+
+    .warning {
+      font-size: 13px;
+      color: #ff6b6b;
+      margin: 20px 0;
+      padding: 10px;
+      background: rgba(150, 0, 0, 0.2);
+      border-radius: 5px;
+      border-left: 3px solid #ff6b6b;
+    }
+
+    .verified-badge {
+      display: inline-block;
+      background: #4caf50;
+      color: white;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="video-thumbnail" onclick="triggerRedirect()">
+      <img src="https://i.ibb.co/DP4RfJTJ/IMG-20250623-195242.jpg" alt="Video Eksklusif 18+" />
+      <div class="play-button">▶</div>
+    </div>
+
+    <h1>Msbrew X Cello.Mg Ini... Tonton Sebelum Dihapus!</h1>
+    
+    <p class="description">Video eksklusif ini hanya tersedia untuk waktu terbatas. Hanya untuk penonton berusia 18+.</p>
+
+    <div class="countdown">
+      ⏳ Video akan dihapus dalam <span id="timer">00:25</span>
+    </div>
+
+    <div class="progress-container" id="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="verifying" id="verify">Memverifikasi usia Anda...</div>
+
+    <button class="cta" onclick="triggerRedirect()">TONTON SEKARANG</button>
+
+    <div class="warning">
+      ⚠️ Konten ini hanya untuk dewasa. Anda harus berusia 18 tahun atau lebih untuk melanjutkan.
+    </div>
+
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-value">95%</div>
+        <div class="stat-label">Menyukai Video Ini</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">18+</div>
+        <div class="stat-label">Rating Konten</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">4.8/5</div>
+        <div class="stat-label">Rating Pengguna</div>
+      </div>
+    </div>
+
+    <div class="comments" id="comments">
+      <h2>Komentar Terbaru:</h2>
+      <div class="comment"><strong>Joko</strong> <span class="verified-badge">Terverifikasi</span>: Wah video ini luar biasa 😳🔥</div>
+      <div class="comment"><strong>Sari88</strong>: Tidak menyangka akan se-hot ini... 😍</div>
+      <div class="comment"><strong>Anonim</strong>: Sudah nonton dua kali. Sangat worth it 🤯</div>
+      <div class="comment"><strong>Wawan_Kepo</strong>: Ada part 2 nya tidak? 😅</div>
+      <div class="comment"><strong>Putra69</strong>: Siapa yang merekam ini??? Momen epic 👀</div>
+      <div class="comment"><strong>Maya</strong>: Kukira ini hoax... ternyata benar 😭</div>
+    </div>
+  </div>
+
+  <script>
+    // Countdown
+    let seconds = 100;
+    const timer = document.getElementById("timer");
+    const countdown = setInterval(() => {
+      seconds--;
+      timer.textContent = `00:${seconds < 10 ? "0" + seconds : seconds}`;
+      if (seconds <= 0) {
+        clearInterval(countdown);
+        timer.textContent = "00:00";
+        timer.style.color = "#ff0000";
+      }
+    }, 1000);
+
+    // Redirect / Popunder
+    let redirected = false;
+    function triggerRedirect() {
+      if (redirected) return;
+      redirected = true;
+
+      document.getElementById("verify").style.display = "block";
+      document.getElementById("progress-bar").style.width = "100%";
+
+      setTimeout(() => {
+        window.open("https://www.profitableratecpm.com/kjn49xb8x?key=fdb96d8d2c9dd18d50af20484e53e970", "_blank"); // GANTI URL
+        document.getElementById("verify").textContent = "Mengarahkan ke video...";
+      }, 3000);
+    }
+
+    // Auto-trigger popunder after 15 seconds
+    setTimeout(() => {
+      triggerRedirect();
+    }, 15000);
+
+    // Show comments one by one
+    const comments = document.querySelectorAll('.comment');
+    let index = 0;
+    function showNextComment() {
+      if (index < comments.length) {
+        comments[index].style.display = 'block';
+        index++;
+        setTimeout(showNextComment, 1200);
+      }
+    }
+    setTimeout(showNextComment, 2000);
+
+    // Add some random viewers count
+    setInterval(() => {
+      const randomViewers = Math.floor(Math.random() * 50) + 150;
+      document.querySelector('.stat-box:nth-child(3) .stat-value').textContent = `${randomViewers}+`;
+    }, 3000);
+  </script>
+</body>
+</html>
